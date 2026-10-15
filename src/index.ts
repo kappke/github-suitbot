@@ -6,7 +6,11 @@ export default (app: Probot) => {
     const branch = ref.replace("refs/heads/", "");
 
     if (branch === repository.default_branch) return;
-    if (branch.startsWith("temp") || branch.startsWith("branchstack")) return;
+    if (
+      branch.startsWith("temp") ||
+      branch.startsWith("branchstack") ||
+      branch.startsWith("stack/")
+    ) return;
 
     const { data: prs } = await context.octokit.pulls.list({
       owner: repository.owner.login,
